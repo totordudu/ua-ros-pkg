@@ -40,7 +40,7 @@
 import roslib
 roslib.load_manifest('joystick_remapper')
 import rospy
-from joy.msg import Joy
+from sensor_msgs.msg import Joy
 
 extract_warn = False
 
@@ -71,7 +71,7 @@ def str_mapping(mapping):
 class Remapper:
     def __init__(self, button_mapping, axis_mapping):
         rospy.Subscriber("joy_source", Joy, self.callback)
-        self.pub = rospy.Publisher("joy_dest", Joy)
+        self.pub = rospy.Publisher("joy_dest", Joy , queue_size = 1)
         check_remapped("joy_source")
         check_remapped("joy_dest")
         self.button_mapping = button_mapping
